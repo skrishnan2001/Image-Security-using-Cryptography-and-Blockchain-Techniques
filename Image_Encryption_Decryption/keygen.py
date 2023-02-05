@@ -24,7 +24,8 @@ def indexgen(x, r, n): #Optimized -> O(n log n)
 
     for i in range(n):
         x = r * x * (1 - x) # Logistic Map
-        k.append(x) # Generating the key
+        k.append(int((x * pow(10, 16)) % 256))
+        # k.append(x) # Generating the key
         index.append(i) # Generating the index
 
     zipped = zip(k, index) # Zip the two lists together
