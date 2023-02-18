@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <title>Image Sharing App</title>
+    <script src="https:///cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  </head>
+  <body>
+    <form id="form">
+      <input id="input" type="text" placeholder="Enter message here">
+      <input id="image" type="file" accept="image/*">
+      <button type="submit">Send</button>
+    </form>
+    <ul id="messages"></ul>
+  </body>
+  <script>
+        var socket = io();
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+        var imageInput = document.getElementById('image');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var message = input.value;
+            socket.emit('message', message);
+            input.value = '';
+        });
+
+        socket.on('message', function(message) {
+            var li = document.createElement('li');
+            li.textContent = message;
+            document.getElementById('messages').prepend(li)
+        });
+
+        imageInput.addEventListener('change', function(event) {
+            var file = imageInput.files[0];
+            var reader = new FileReader();
+            reader.addEventListener('load', function() {
+              socket.emit('image', reader.result);
+            });
+            reader.readAsDataURL(file);
+        });
+
+        socket.on('image', function(image_data) {
+            var li = document.createElement('li');
+            var img = document.createElement('img');
+            img.src = image_data;
+            img.width = 300
+            img.height = 300
+            li.appendChild(img)
+            document.getElementById('messages').prepend(li)
+        });
+  </script>
+</html>
