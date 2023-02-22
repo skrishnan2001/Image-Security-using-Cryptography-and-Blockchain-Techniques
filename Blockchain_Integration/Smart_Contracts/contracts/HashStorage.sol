@@ -17,6 +17,13 @@ contract HashStorage {
         image_count[user_id] = curr_count + 1;
     }
 
+    function get_latest_hash(string memory uid) public view returns (string memory)
+    {
+        uint256 latest_id = image_count[uid];
+
+        return images[uid][latest_id]; 
+    }
+
     function get(string memory uid, uint256 idx)
         public
         view
