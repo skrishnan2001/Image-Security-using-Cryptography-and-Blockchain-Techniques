@@ -1,0 +1,13 @@
+body {
+  background-color: #fafafa;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  align-items: center;
+  height: 100vh;
+}
+
+.box {
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+}
