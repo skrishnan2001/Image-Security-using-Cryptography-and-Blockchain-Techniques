@@ -1,7 +1,13 @@
+from Image_Authentication.Construct_Merkle_Tree import (
+    construct_merkle_tree,
+    get_image_chunks,
+    get_leaves,
+)
 from Merkle_Root_Getter_Setter import (
     web3_init,
     setMerkleRootHash,
     getLatestMerkleRootHash,
+    getMerkleRootHash
 )
 import json
 import os
@@ -9,11 +15,6 @@ from dotenv import load_dotenv
 import sys
 
 sys.path.append("../../")
-from Image_Authentication.Construct_Merkle_Tree import (
-    construct_merkle_tree,
-    get_image_chunks,
-    get_leaves,
-)
 
 
 if __name__ == "__main__":
@@ -37,7 +38,7 @@ if __name__ == "__main__":
 
     # Getting the hash of encrypted image
     image_directory_path = "Images/"
-    image_file_name = "Au_ani_00001"
+    image_file_name = "CEG_EncryptedImage"
     ext = ".jpg"
     complete_file_path = image_directory_path + image_file_name + ext
     print("Image File path: ", complete_file_path)
@@ -50,9 +51,14 @@ if __name__ == "__main__":
         print("Root Hash:", image_hash)
 
     # Updating the value
-    setMerkleRootHash(web3, contract, acct_private_key, sample_user, image_hash)
+    setMerkleRootHash(web3, contract, acct_private_key,
+                      sample_user, image_hash)
 
     # Retrieving the updated value
     hash_value = getLatestMerkleRootHash(contract, sample_user)
+    hash_value_id1 = getMerkleRootHash(contract, sample_user, 1)
 
-    print("Hash value for the latest image belonging to user ID ", sample_user, " is ",hash_value)
+    print("Hash value for the latest image belonging to user ID ",
+          sample_user, " is ", hash_value)
+    print("Hash value for image id 1 belonging to user ID ",
+          sample_user, " is ", hash_value_id1)
