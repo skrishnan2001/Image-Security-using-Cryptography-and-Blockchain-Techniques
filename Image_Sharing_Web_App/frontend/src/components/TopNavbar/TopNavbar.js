@@ -24,7 +24,8 @@ function TopNavbar() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/home">
-          <Icon icon="mdi:instagram" color="#e95950" /> Decentragram - The Decentralized Image Sharing App</Navbar.Brand>
+            <Icon icon="mdi:instagram" color="#fbad50" width="35" height="35" />
+            Decentragram - The Decentralized Image Sharing App</Navbar.Brand>
         </Container>
         {user &&
           <div className="d-grid gap-2 mx-3">

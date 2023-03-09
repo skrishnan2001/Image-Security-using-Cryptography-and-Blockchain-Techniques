@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import './ImageUpload.css';
 import { Button, Form } from 'react-bootstrap';
 import Loader from '../../components/Loader/Loader';
 import { encode as base64_encode } from 'base-64';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import SendIcon from '@mui/icons-material/Send';
 
 require('dotenv').config()
 const IPFS = require('ipfs-api');
@@ -70,7 +70,7 @@ function ImageUpload() {
                     <Form onSubmit={onSubmit}>
                         <AddPhotoAlternateIcon /> <input type="file" onChange={captureFile} required />
                         <div className="d-grid gap-2 mt-5">
-                            <Button type="submit">Send</Button>
+                            <Button type="submit">  Send <SendIcon /> </Button>
                         </div>
                     </Form>
                 </div>
@@ -83,7 +83,7 @@ function ImageUpload() {
                         <div class="card-body">
                             <p class="card-text text-success">IPFS Hash: <strong> {hash}</strong></p>
                             {/* <p>Non clickabe Link: https://ipfs.io/ipfs/{hash}</p> */}
-                            <a href={"https://ipfs.io/ipfs/" + hash} target="_blank"  rel="noopener noreferrer">Clickable Link to view file on IPFS</a>
+                            <a href={"https://ipfs.io/ipfs/" + hash} target="_blank" rel="noopener noreferrer">Clickable Link to view file on IPFS</a>
                         </div>
                     </div> :
                     <p></p>

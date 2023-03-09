@@ -1,3 +1,4 @@
+
 .spinner-loading {
     border: 10px solid rgb(34, 50, 126);
     border-right-color: transparent;
@@ -23,3 +24,38 @@
       transform: translate(-50%, -50%) rotate(1turn);
     }
   }
+  
+  .spinner-loader-text {
+    color: rgb(2, 2, 2);
+    margin: 0;
+    text-transform: capitalize;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .spinner-loader-text:before,
+  .spinner-loader-text:after {
+    content: "..";
+    position: absolute;
+    animation: dot-animation 1s linear infinite alternate;
+  }
+  
+  .spinner-loader-text:before {
+    right: -15px;
+  }
+  .spinner-loader-text:after {
+    right: -20px;
+    animation-delay: 1s;
+  }
+  
+  @keyframes dot-animation {
+    0% {
+      opacity: 0.1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+  

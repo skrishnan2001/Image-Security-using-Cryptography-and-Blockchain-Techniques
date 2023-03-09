@@ -4,6 +4,7 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../../context/UserAuthContext";
 import "./auth.css";
+import LoginIcon from '@mui/icons-material/Login';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -48,6 +49,7 @@ const Signup = () => {
           <div className="d-grid gap-2">
             <Button variant="primary" type="Submit">
               Sign up
+              <LoginIcon />
             </Button>
           </div>
         </Form>

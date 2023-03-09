@@ -1,24 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBhWAJAq1hkqYzdHOyJ7JdqM80HWT8bJaw",
-//   authDomain: "image-sharing-app-c4bfe.firebaseapp.com",
-//   projectId: "image-sharing-app-c4bfe",
-//   storageBucket: "image-sharing-app-c4bfe.appspot.com",
-//   messagingSenderId: "221165350402",
-//   appId: "1:221165350402:web:19de4336d9490e3223411b"
-// };
-
-// const firebaseConfig = {
-//   apiKey: fbConfig.apiKey,
-//   authDomain: fbConfig.authDomain,
-//   projectId: fbConfig.projectId,
-//   storageBucket: fbConfig.storageBucket,
-//   messagingSenderId: fbConfig.messagingSenderId,
-//   appId: fbConfig.appId
-// }
-
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
