@@ -38,7 +38,7 @@ def construct_merkle_tree(chunks): #Recursive Function
 
 if __name__ == '__main__':
     image_directory_path = 'Images/'
-    image_file_name = 'Au_ani_00001_tampered'
+    image_file_name = 'Ronaldo_EncryptedImage'
     ext = '.jpg'
     complete_file_path = image_directory_path + image_file_name + ext
     print('Image File path: ', complete_file_path)
