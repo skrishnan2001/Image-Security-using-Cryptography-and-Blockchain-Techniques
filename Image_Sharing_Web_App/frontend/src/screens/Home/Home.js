@@ -1,6 +1,7 @@
 import React from "react";
 import { useUserAuth } from "../../context/UserAuthContext";
 import ImageUpload from "../ImageUpload/ImageUpload";
+import Users from "../Users/Users";
 
 const Home = () => {
   const { user } = useUserAuth();
@@ -12,6 +13,8 @@ const Home = () => {
       </div>
       <br />
       <ImageUpload />
+
+      <Users />
     </>
   );
 };
