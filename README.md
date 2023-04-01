@@ -9,4 +9,4 @@ The goal of this project is to develop an application that allows for the secure
 - <strong>Integrity</strong>: A merkle tree based approach is proposed to ensure that the integrity of the image is being preserved.
 
 ## Architecture Diagram
-![Screenshot](https://github.com/skrishnan2001/Image-Security-using-Cryptography-and-Blockchain-Techniques/blob/master/System_Architecture/Detailed_Architecture_Diagram.png)
+![Screenshot](https://github.com/skrishnan2001/Image-Security-using-Cryptography-and-Blockchain-Techniques/blob/master/System_Architecture/Architecture_Diagram.png)
