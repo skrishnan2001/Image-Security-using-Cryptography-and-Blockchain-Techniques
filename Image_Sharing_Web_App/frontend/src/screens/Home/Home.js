@@ -1,7 +1,6 @@
 import React from "react";
 import { useUserAuth } from "../../context/UserAuthContext";
-import ImageUpload from "../ImageUpload/ImageUpload";
-import Users from "../Users/Users";
+import SharedWith from "../Users/SharedWith";
 
 const Home = () => {
   const { user } = useUserAuth();
@@ -12,9 +11,9 @@ const Home = () => {
         {user && "Logged in using " + user.email}
       </div>
       <br />
-      <ImageUpload />
+      {/* <ImageUpload /> */}
 
-      <Users />
+      <SharedWith email={user.email}/>
     </>
   );
 };

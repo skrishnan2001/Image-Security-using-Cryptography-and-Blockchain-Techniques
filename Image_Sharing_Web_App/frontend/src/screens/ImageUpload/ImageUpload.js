@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import Loader from '../../components/Loader/Loader';
 import { encode as base64_encode } from 'base-64';
@@ -16,7 +16,7 @@ const ipfs = new IPFS({
     }
 });
 
-function ImageUpload() {
+function ImageUpload({email}) {
     const [buf, setBuf] = useState();
     const [hash, setHash] = useState("");
     const [loader, setLoader] = useState(false);
@@ -63,10 +63,10 @@ function ImageUpload() {
     }
     return (
         <div>
-            <div class="card">
-                <h5 class="card-header">Send Image</h5>
-                <div class="card-body">
-                    <h5 class="card-title">Choose the image to be sent</h5>
+            <div className="card">
+                <h5 className="card-header">Send Image</h5>
+                <div className="card-body">
+                    <h5 className="card-title">Choose the image to be sent to {email}</h5>
                     <Form onSubmit={onSubmit}>
                         <AddPhotoAlternateIcon /> <input type="file" onChange={captureFile} required />
                         <div className="d-grid gap-2 mt-5">
@@ -78,10 +78,11 @@ function ImageUpload() {
 
             {
                 showLinks ?
-                    <div class="card mt-5 mb-5 mx-auto">
+                    <div className="card mt-5 mb-5 mx-auto">
                         <img class="card-img-top" src={"https://ipfs.io/ipfs/" + hash} alt="Uploaded to IPFS" />
-                        <div class="card-body">
-                            <p class="card-text text-success">IPFS Hash: <strong> {hash}</strong></p>
+                        {/* <img className="card-img-top" src={"https://silodrome.com/wp-content/uploads/2022/09/No-Time-To-Die-e1664215907489-1600x1025.jpg"} alt="Uploaded to IPFS" /> */}
+                        <div className="card-body">
+                            <p className="card-text text-success">IPFS Hash: <strong> {hash}</strong></p>
                             {/* <p>Non clickabe Link: https://ipfs.io/ipfs/{hash}</p> */}
                             <a href={"https://ipfs.io/ipfs/" + hash} target="_blank" rel="noopener noreferrer">Clickable Link to view file on IPFS</a>
                         </div>

@@ -1,5 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
@@ -13,7 +14,7 @@ function TopNavbar() {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.log(error.message);
     }
@@ -23,9 +24,12 @@ function TopNavbar() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/home">
-            <Icon icon="mdi:instagram" color="#fbad50" width="35" height="35" />
+          <Navbar.Brand href="/">
+            <Icon icon="mdi:instagram" className="mr-3 my-auto" color="#fbad50" width="35" height="35" />
             Decentragram - The Decentralized Image Sharing App</Navbar.Brand>
+          <Nav className="d-grid gap-2 mx-3">
+            <Nav.Link href="/users">Search Users</Nav.Link>
+          </Nav>
         </Container>
         {user &&
           <div className="d-grid gap-2 mx-3">

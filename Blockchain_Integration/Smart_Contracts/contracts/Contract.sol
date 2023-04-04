@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.16 <0.9.0;
 
-contract HashStorage {
-    //address owner;
-
-    // constructor() {
-    //     owner = msg.sender;
-    // }
+contract UserImagesContract {
+    string[] allUsers;
 
     struct userDetails {
         string firstName;
@@ -34,32 +30,13 @@ contract HashStorage {
             });
 
             UserList[user_id] = newUser;
+            allUsers.push(user_id);
         }
     }
 
     function check_user(string memory user_id) public view returns (bool) {
         return UserList[user_id].exists;
     }
-
-    // struct RequestDetails {
-    //     string requested_id;
-    //     uint256 image_id;
-    // }
-
-    // mapping (string => RequestDetails) public request_map;
-
-    // function addRequest(string memory userId, string memory requestedId, uint256 imageId) public {
-    //     RequestDetails memory newRequest = RequestDetails({
-    //         requested_id: requestedId,
-    //         image_id: imageId
-    //     });
-    //     request_map[userId] = newRequest;
-    // }
-
-    // function updateRequest(string memory userId, string memory requestedId, uint256 imageId) public {
-    //     request_map[userId].requested_id = requestedId;
-    //     request_map[userId].image_id = imageId;
-    // }
 
     //Self Explanatory
     struct ImageDetails {
@@ -124,7 +101,7 @@ contract HashStorage {
         string calldata image_hash,
         string calldata time_stamp,
         string calldata caption
-    ) public returns (ImageDetails memory obj) {
+    ) public pure returns (ImageDetails memory obj) {
         ImageDetails memory details_data = ImageDetails({
             merkle_root: image_hash,
             url: url,
@@ -221,16 +198,37 @@ contract HashStorage {
         return (idxs, img_details);
     }
 
-    // all people that a person has communicated with
     function get_Names(
         string memory sender_id
     ) public view returns (userDetails[] memory names) {
-        userDetails[] memory users_communicated_with = new userDetails[](Communication_Matrix[sender_id].Names.length);
-        for(uint256 i =0;i<Communication_Matrix[sender_id].Names.length;i++)
-        {
-            users_communicated_with[i] = UserList[Communication_Matrix[sender_id].Names[i]];
+        userDetails[] memory users_communicated_with = new userDetails[](
+            Communication_Matrix[sender_id].Names.length
+        );
+        for (
+            uint256 i = 0;
+            i < Communication_Matrix[sender_id].Names.length;
+            i++
+        ) {
+            users_communicated_with[i] = UserList[
+                Communication_Matrix[sender_id].Names[i]
+            ];
         }
 
         return users_communicated_with;
     }
+
+    function get_All_Users()
+        public
+        view
+        returns (userDetails[] memory allUsersList)
+    {
+        userDetails[] memory List_of_All_Users = new userDetails[](
+            allUsers.length
+        );
+        for (uint256 i = 0; i < allUsers.length; i++) {
+            List_of_All_Users[i] = UserList[allUsers[i]];
+        }
+
+        return List_of_All_Users;
     }
+}

@@ -18,7 +18,7 @@ const Signup = () => {
     setError("");
     try {
       await signUp(email, password);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
@@ -27,10 +27,10 @@ const Signup = () => {
   return (
     <div className="auth-container">
       <div className="p-4 box">
-        <h2 className="mb-3">Signup</h2>
+        <h2 className="mb-5">Signup</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-5" controlId="formBasicEmail">
             <Form.Control
               type="email"
               placeholder="Email address"
@@ -38,7 +38,7 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-5" controlId="formBasicPassword">
             <Form.Control
               type="password"
               placeholder="Password"

@@ -7,32 +7,41 @@ import Signup from "./screens/Authentication/Signup";
 import ProtectedRoute from "./screens/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import TopNavbar from "./components/TopNavbar/TopNavbar"
+import AllUsers from "./screens/Users/AllUsers";
 
 
 function App() {
   return (
     <>
-        <UserAuthContextProvider>
-          <TopNavbar />
-          <Container style={{ width: "700px" }}>
+      <UserAuthContextProvider>
+        <TopNavbar />
+        <Container style={{ width: "800px" }}>
           <Row>
             <Col>
               <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
                 <Route
-                  path="/home"
+                  path="/"
                   element={
                     <ProtectedRoute>
                       <Home />
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route
+                  path="/users"
+                  element={
+                    <ProtectedRoute>
+                      <AllUsers />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </Col>
           </Row>
-          </Container>
-        </UserAuthContextProvider>
+        </Container>
+      </UserAuthContextProvider>
     </>
   );
 }
