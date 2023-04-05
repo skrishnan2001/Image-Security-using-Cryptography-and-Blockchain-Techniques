@@ -79,11 +79,10 @@ function ImageUpload({email}) {
             {
                 showLinks ?
                     <div className="card mt-5 mb-5 mx-auto">
-                        <img class="card-img-top" src={"https://ipfs.io/ipfs/" + hash} alt="Uploaded to IPFS" />
-                        {/* <img className="card-img-top" src={"https://silodrome.com/wp-content/uploads/2022/09/No-Time-To-Die-e1664215907489-1600x1025.jpg"} alt="Uploaded to IPFS" /> */}
+                        {/* <img class="card-img-top" src={"https://ipfs.io/ipfs/" + hash} alt="Uploaded to IPFS" /> */}
+                        <img className="card-img-top" src={"https://silodrome.com/wp-content/uploads/2022/09/No-Time-To-Die-e1664215907489-1600x1025.jpg"} alt="Uploaded to IPFS" />
                         <div className="card-body">
                             <p className="card-text text-success">IPFS Hash: <strong> {hash}</strong></p>
-                            {/* <p>Non clickabe Link: https://ipfs.io/ipfs/{hash}</p> */}
                             <a href={"https://ipfs.io/ipfs/" + hash} target="_blank" rel="noopener noreferrer">Clickable Link to view file on IPFS</a>
                         </div>
                     </div> :

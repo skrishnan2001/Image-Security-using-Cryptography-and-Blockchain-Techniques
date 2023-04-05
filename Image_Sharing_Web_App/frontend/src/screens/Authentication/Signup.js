@@ -8,6 +8,8 @@ import LoginIcon from '@mui/icons-material/Login';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const { signUp } = useUserAuth();
@@ -22,6 +24,28 @@ const Signup = () => {
     } catch (err) {
       setError(err.message);
     }
+
+    const data = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email
+    }
+
+    fetch(`/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
   };
 
   return (
@@ -30,6 +54,22 @@ const Signup = () => {
         <h2 className="mb-5">Signup</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-5" controlId="formBasicFirstName">
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-5" controlId="formBasicLastName">
+            <Form.Control
+              type="text"
+              placeholder="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group className="mb-5" controlId="formBasicEmail">
             <Form.Control
               type="email"
