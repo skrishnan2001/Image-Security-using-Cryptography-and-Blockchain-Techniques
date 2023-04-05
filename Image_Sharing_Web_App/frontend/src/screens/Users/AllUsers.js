@@ -3,15 +3,16 @@ import "@innovaccer/design-system/css/dist/index.css";
 import { Card, Table } from '@innovaccer/design-system';
 import ImageUpload from "../ImageUpload/ImageUpload";
 import Loader from "../../components/Loader/Loader";
+import { useUserAuth } from "../../context/UserAuthContext";
+
 
 const AllUsers = () => {
-
+  const { user } = useUserAuth();
   const [showComponent, setShowComponent] = useState(false);
   const [recipientEmail, setRecipientEmail] = useState();
 
   const renderComponent = (rowIndex) => {
     setShowComponent(true);
-    // console.log(rowIndex["email"])
     setRecipientEmail(rowIndex["email"])
   }
 
@@ -84,9 +85,10 @@ const AllUsers = () => {
             />
           </Card>
           :
-          <Loader/>
+          <Loader />
       }
-      {showComponent && <ImageUpload email={recipientEmail} />}
+      {showComponent && <ImageUpload sender={user.email} recipientEmail={recipientEmail} />}
+
 
     </>
   );

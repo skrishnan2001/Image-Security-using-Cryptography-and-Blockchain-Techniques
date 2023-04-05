@@ -67,7 +67,8 @@ function ImageUpload({ sender, recipientEmail }) {
             "user2": recipientEmail,
             "url": `https://ipfs.io/ipfs/${ipfsId}`,
             "caption": caption,
-            "time_stamp": "05/04/23"
+            "time_stamp": new Date().toLocaleString()
+
         }
 
         console.log(JSON.stringify(data))
