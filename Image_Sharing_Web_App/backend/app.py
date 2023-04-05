@@ -1,4 +1,5 @@
 from Contract_Functions import web3_init, getNames, getSharedImages, shareImage, doesUserExist, grantAccess, revoke_access, registerUser, getAllUsers
+from Construct_Merkle_Tree import merkle_tree_construction_driver
 from flask import Flask, jsonify, request
 
 import json
@@ -64,9 +65,9 @@ def all_users_list():
         return jsonify({"status_code": 406, "message": "Unexpected error"})
 
 
-@app.route('/<user>/communications/<user2>')
-def images_shared(user, user2):
-    images_shared = getSharedImages(contract, acct_private_key, user, user2)
+@app.route('/<user1>/communications/<user2>')
+def images_shared(user1, user2):
+    images_shared = getSharedImages(contract, acct_private_key, user1, user2)
     print(images_shared[1])
     imgs_shared_arr = []
     for i in images_shared[1]:
@@ -83,25 +84,27 @@ def images_shared(user, user2):
     return jsonify(imgs_shared_arr)
 
 
-@app.route('/<user>/communicate/<user2>', methods=['POST'])
-def share(user, user2):
+@app.route('/<user1>/communicate/<user2>', methods=['POST'])
+def share(user1, user2):
 
-    if(doesUserExist(contract, user2) == 0):
-        return jsonify({"status_code": 406, "message": "User not found"})
-    user1 = user
-    user_2 = user2
-    url = request.json['url']
-    image_hash = request.json['image_hash']
-    time_stamp = request.json['time_stamp']
-    caption = request.json["caption"]
-    returned_val = {'data': {"user1": user1, "user2": user_2, "url": url,
-                             "image_hash": image_hash, "time_stamp": time_stamp, "caption": caption}}
     try:
-        shareImage(web3, contract, acct_private_key, user1,
-                   user_2, url, image_hash, time_stamp, caption)
-        return jsonify(returned_val), 201
+        if(doesUserExist(contract, user2) == 0):
+            return jsonify({"status_code": 406, "message": "User not found"})
+        url = request.json['url']
+        image_hash = merkle_tree_construction_driver(url)
+        print(image_hash)
+        time_stamp = request.json['time_stamp']
+        caption = request.json["caption"]
+        returned_val = {'data': {"user1": user1, "user2": user2, "url": url,
+                                    "time_stamp": time_stamp, "image_hash": image_hash, "caption": caption}}
+        try:
+            shareImage(web3, contract, acct_private_key,
+                        user1, user2, url, image_hash, time_stamp, caption)
+            return jsonify(returned_val), 201
+        except:
+            return jsonify({"status_code": 406, "message": "Unexpected error"})
     except:
-        return jsonify({"status_code": 406, "message": "Unexpected error"})
+        return jsonify({"status_code": 406, "message": "Incorrect input"})
 
 
 @app.route("/<user>/access", methods=["POST"])

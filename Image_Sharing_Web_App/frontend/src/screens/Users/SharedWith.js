@@ -87,11 +87,11 @@ const SharedWith = ({ email }) => {
         :
         <div className="justify-content-md-center">
           <h3 className="text-center mb-5 text-success">Search for a user & start sharing now! </h3>
-          <img className="d-block mx-auto img-fluid w-35"  src={first_upload} alt="first upload" />
+          <img className="d-block mx-auto img-fluid w-35" src={first_upload} alt="first upload" />
         </div>
-        
+
       }
-      {showComponent && <ImageUpload email={recipientEmail} />}
+      {showComponent && <ImageUpload sender={email} recipientEmail={recipientEmail} />}
       {showComponent && <SharedImages sender={email} receiver={recipientEmail} />}
     </>
   );

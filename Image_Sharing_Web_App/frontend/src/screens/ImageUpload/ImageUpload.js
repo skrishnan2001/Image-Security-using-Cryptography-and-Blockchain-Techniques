@@ -16,11 +16,16 @@ const ipfs = new IPFS({
     }
 });
 
-function ImageUpload({email}) {
+function ImageUpload({ sender, recipientEmail }) {
     const [buf, setBuf] = useState();
     const [hash, setHash] = useState("");
+    const [caption, setCaption] = useState('');
     const [loader, setLoader] = useState(false);
     const [showLinks, setShowLinks] = useState(false);
+
+    function handleCaptionChange(event) {
+        setCaption(event.target.value);
+    }
 
     const captureFile = (event) => {
         event.stopPropagation()
@@ -55,6 +60,35 @@ function ImageUpload({email}) {
         else
             setShowLinks(false)
         setLoader(false);
+        
+        
+        const data = {
+            "user1": sender,
+            "user2": recipientEmail,
+            "url": `https://ipfs.io/ipfs/${ipfsId}`,
+            "caption": caption,
+            "time_stamp": "05/04/23"
+        }
+
+        console.log(JSON.stringify(data))
+
+        fetch(`/${sender}/communicate/${recipientEmail}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+
+
     }
     if (loader) {
         return (
@@ -66,8 +100,10 @@ function ImageUpload({email}) {
             <div className="card">
                 <h5 className="card-header">Send Image</h5>
                 <div className="card-body">
-                    <h5 className="card-title">Choose the image to be sent to {email}</h5>
+                    <h5 className="card-title">Choose the image to be sent to {recipientEmail}</h5>
                     <Form onSubmit={onSubmit}>
+                        <input type="text" className="form-control my-5" id="example-textbox" value={caption} onChange={handleCaptionChange} placeholder='Caption' />
+
                         <AddPhotoAlternateIcon /> <input type="file" onChange={captureFile} required />
                         <div className="d-grid gap-2 mt-5">
                             <Button type="submit">  Send <SendIcon /> </Button>
@@ -79,8 +115,8 @@ function ImageUpload({email}) {
             {
                 showLinks ?
                     <div className="card mt-5 mb-5 mx-auto">
-                        {/* <img class="card-img-top" src={"https://ipfs.io/ipfs/" + hash} alt="Uploaded to IPFS" /> */}
-                        <img className="card-img-top" src={"https://silodrome.com/wp-content/uploads/2022/09/No-Time-To-Die-e1664215907489-1600x1025.jpg"} alt="Uploaded to IPFS" />
+                        <img class="card-img-top" src={"https://ipfs.io/ipfs/" + hash} alt="Uploaded to IPFS" />
+                        {/* <img className="card-img-top" src={"https://silodrome.com/wp-content/uploads/2022/09/No-Time-To-Die-e1664215907489-1600x1025.jpg"} alt="Uploaded to IPFS" /> */}
                         <div className="card-body">
                             <p className="card-text text-success">IPFS Hash: <strong> {hash}</strong></p>
                             <a href={"https://ipfs.io/ipfs/" + hash} target="_blank" rel="noopener noreferrer">Clickable Link to view file on IPFS</a>
