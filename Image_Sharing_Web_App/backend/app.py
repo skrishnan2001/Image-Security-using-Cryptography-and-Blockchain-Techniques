@@ -65,13 +65,15 @@ def all_users_list():
         return jsonify({"status_code": 406, "message": "Unexpected error"})
 
 
-@app.route('/<user1>/communications/<user2>')
-def images_shared(user1, user2):
-    images_shared = getSharedImages(contract, acct_private_key, user1, user2)
+@app.route('/<user>/communications/<user2>')
+def images_shared(user, user2):
+    images_shared = getSharedImages(contract, acct_private_key, user, user2)
     print(images_shared[1])
     imgs_shared_arr = []
+    count = 1
     for i in images_shared[1]:
         imgs_shared_arr.append({
+            "image_id": count,
             "merkle_hash": i[0],
             "url": i[1],
             "timestamp": i[2],
@@ -80,6 +82,7 @@ def images_shared(user1, user2):
             "is_Sender": i[5]
 
         })
+        count += 1
 
     return jsonify(imgs_shared_arr)
 
@@ -96,10 +99,10 @@ def share(user1, user2):
         time_stamp = request.json['time_stamp']
         caption = request.json["caption"]
         returned_val = {'data': {"user1": user1, "user2": user2, "url": url,
-                                    "time_stamp": time_stamp, "image_hash": image_hash, "caption": caption}}
+                                 "time_stamp": time_stamp, "image_hash": image_hash, "caption": caption}}
         try:
             shareImage(web3, contract, acct_private_key,
-                        user1, user2, url, image_hash, time_stamp, caption)
+                       user1, user2, url, image_hash, time_stamp, caption)
             return jsonify(returned_val), 201
         except:
             return jsonify({"status_code": 406, "message": "Unexpected error"})

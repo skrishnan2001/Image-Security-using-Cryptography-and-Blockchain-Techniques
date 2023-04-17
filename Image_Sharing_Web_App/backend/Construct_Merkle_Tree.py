@@ -46,6 +46,3 @@ def merkle_tree_construction_driver(complete_file_path):
     root = construct_merkle_tree(chunks)
     return root
     
-
-print(merkle_tree_construction_driver("https://ipfs.io/ipfs/QmYe8utumQ8AAE6iyBD4h5hkwEDSdyGPvZd2V45XjZFRr3"))
-

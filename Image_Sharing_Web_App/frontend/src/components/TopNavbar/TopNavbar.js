@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { Icon } from '@iconify/react';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 function TopNavbar() {
@@ -34,7 +35,8 @@ function TopNavbar() {
         {user &&
           <div className="d-grid gap-2 mx-3">
             <Button variant="warning" onClick={handleLogout}>
-              Log out
+              <LogoutIcon />
+               Log out
             </Button>
           </div>
         }
